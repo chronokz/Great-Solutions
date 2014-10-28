@@ -1,5 +1,6 @@
 # Convert Integer to String with space for thousands
 # 10000000 -> 10 000 000
+
 price_format = (amount) ->
 	amount_string = '' + amount
 	result = ''
