@@ -1,0 +1,33 @@
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+<script>
+ymaps.ready(init);
+
+function init() {
+    navigator.geolocation.getCurrentPosition(showPosition);
+}
+
+function showPosition(position){
+    ymaps.geocode([position.coords.latitude, position.coords.longitude], {
+            results: 1,
+            kind: 'locality'
+        }).then(
+                function(res) {
+                    var geoObject = res.geoObjects.get(0);
+                    if (geoObject === null) {
+                        var _city = null;
+                        var _country = null;
+                    } else {
+                        var _city = geoObject.properties.get('name');
+                        var _country = geoObject.properties.get('metaDataProperty.GeocoderMetaData.AddressDetails.Country.CountryName'); // получаем название страны
+                    }
+                    
+                    alert(_city);
+                    alert(_country);
+                },
+                function(err) {
+                    console.error(err);
+                }
+        );
+
+}
+</script>
